@@ -157,6 +157,8 @@ void common_element(Node *root_a, Node *root_b)
         head_ref_a=head_ref_a->next;
         head_ref_b=head_ref_b->next;
     }
+    
+    cout<<-1<<endl;
 
     return;
 
@@ -196,7 +198,7 @@ int main()
     append(z, c);
 
 
-    common_element(a, x);
+    common_element(a, d);
 
     //print(a);
 
