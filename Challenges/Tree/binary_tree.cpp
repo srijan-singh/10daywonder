@@ -38,6 +38,56 @@ class BST
      {
           if(root->data == data)
           {
+               if(root->left)
+               {
+                    auto max = max_elm(root->left);
+                    auto root_ref = root->left;
+
+                    while (root_ref != max)
+                    {
+                         root_ref = root_ref->right;
+                    }
+
+                    
+                    if(root==NULL)
+                    {
+                         cout<<root->data;
+                         cout<<" Righ NULL\n";
+                    }
+
+                    //root_ref->right = NULL;
+                    root->data = max->data;               
+               }
+
+               else if(root->right)
+               {
+                    auto min = min_elm(root->right);
+                    auto root_ref = root->right;
+                    auto prev_root = root_ref;
+
+                    while(root_ref != min)
+                    {
+                         prev_root = root_ref;
+                         root_ref = root_ref->left;
+                    }
+
+                    if(root->left==NULL)
+                    {
+                         cout<<root->data;
+                         cout<<" Left NULL\n";
+                    }
+
+                    //root_ref->left = NULL;
+                    root->data = min->data;
+                    min = NULL;
+
+               }
+
+               else
+               {
+                    root = NULL;
+               }
+               /*
                cout<<root->data<<endl;
                auto min = min_elm(root);
                auto root_ref = root;
@@ -70,6 +120,7 @@ class BST
                {
                     root = NULL;
                }
+               */
                
                
           }
