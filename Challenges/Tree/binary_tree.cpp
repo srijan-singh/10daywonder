@@ -46,15 +46,15 @@ class BST
      {
           if(root==NULL) return;
           cout<<root->data<<' ';
-          inorder_display(root->left);
-          inorder_display(root->right);
+          preorder_display(root->left);
+          preorder_display(root->right);
      }
 
      void postorder_display(Node *root)
      {
           if(root==NULL) return;          
-          inorder_display(root->left);
-          inorder_display(root->right);
+          postorder_display(root->left);
+          postorder_display(root->right);
           cout<<root->data<<' ';
      }
 
