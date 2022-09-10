@@ -34,6 +34,79 @@ class BST
           return root;
      }
 
+     Node *deletion(Node *root, int data)
+     {
+          if(root->data == data)
+          {
+               cout<<root->data<<endl;
+               auto min = min_elm(root);
+               auto root_ref = root;
+
+               if(root->left != NULL)
+               {
+                    while(root_ref->left != min)
+                    {
+                         root_ref = root_ref->left;
+                    }
+
+                    cout<<root->data<<endl;
+                    root_ref->left = NULL;
+                    root->data = min->data;
+               }
+
+               else if(root->right != NULL)
+               {
+                    cout<<"works!\n";
+
+                    auto next = root->right;
+                    root->left = next->left;
+                    root->right = next->right;
+
+                    root->data = next->data;
+                    
+               }
+
+               else
+               {
+                    root = NULL;
+               }
+               
+               
+          }
+
+          else if(root->data > data)
+          {
+               root->left = deletion(root->left, data);
+          }
+
+          else
+          {
+               root->right = deletion(root->right, data);
+          }
+
+          return root;
+     }
+
+     Node *min_elm(Node *root)
+     {
+          if((root->left == NULL and root->right == NULL) or (root->left == NULL and root->right != NULL))
+          {
+               return root;
+          }
+
+          return min_elm(root->left);
+     }
+
+     Node* max_elm(Node *root)
+     {
+          if((root->left == NULL and root->right == NULL) or (root->left != NULL and root->right == NULL))
+          {
+               return root;
+          }
+
+          return max_elm(root->right);
+     }
+
      void inorder_display(Node *root)
      {
           if(root==NULL) return;
@@ -65,6 +138,11 @@ class BST
           root = insertion(root, data);
      }
 
+     void delete_elm(int data)
+     {
+          root = deletion(root, data);
+     }
+
      void inorder()
      {
           inorder_display(root);
@@ -83,19 +161,39 @@ class BST
           cout<<endl;
      }
 
+     int min()
+     {
+          return min_elm(root)->data;
+     }
+
+     int max()
+     {
+          return max_elm(root)->data;
+     }
 };
 
 int main()
 {
      BST b;
-     b.insert(4);
-     b.insert(1);
-     b.insert(3);
-     b.insert(2);
+
+     vector<int> elms = {12, 6, 8, 19, 21, 11, 3, 5, 4, 24, 18};
+
+     for(auto elm : elms)
+     {
+          b.insert(elm);
+     }
+
 
      b.inorder();
      b.preorder();
-     b.postorder();
+     //b.postorder();
+
+     //cout<<b.min()<<endl;     
+     //cout<<b.max()<<endl;
+
+     b.delete_elm(21);
+
+     b.inorder();
 
      return 0;
 }
